@@ -1,6 +1,6 @@
 """CoNLL-U loading shared by every model in the benchmark.
 
-Tokenisation rules match kazmorph's ``scripts/train_crf.py`` parser exactly:
+Tokenisation rules match the CRF baseline's original training parser exactly:
 comment lines skipped, multiword token ranges (``1-2``) skipped so that only
 syntactic words are evaluated, empty nodes (``8.1``) are absent from UD_Kazakh-KTB.
 That parser yielded 7,376 / 1,566 / 1,594 tokens on the canonical split.

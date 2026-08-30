@@ -2,12 +2,11 @@
 
 ## Data
 
-- `data/{train,dev,test}.conllu` — byte-identical copies from
-  `kazmorph/data/` (local checkout of the CRF baseline toolkit), the
-  decontaminated canonical split: seed 42, 85/15/15 of the 1,078-sentence
-  pool → 754/162/162 sentences, 7,376/1,566/1,594 syntactic tokens.
-  SHA256 in `data/SHA256SUMS`. This is exactly the split in Table 1 of the
-  draft. See `kazmorph/data/split_meta.json` (copied alongside).
+- `data/{train,dev,test}.conllu` — the decontaminated canonical split:
+  seed 42, 85/15/15 of the 1,078-sentence pool → 754/162/162 sentences,
+  7,376/1,566/1,594 syntactic tokens. SHA256 in `data/SHA256SUMS`. This is
+  exactly the split in Table 1 of the draft (`data/split_meta.json` holds
+  the split metadata).
 - Tokenisation for evaluation: syntactic words only (multiword-token ranges
   skipped), matching `kazmorph/scripts/train_crf.py`.
 
@@ -20,11 +19,14 @@
   accuracy), seeds 13/42/123. Best-epoch state saved per run in
   `results/checkpoints/`. Base weights come from the local HF cache; no
   downloads at run time (`HF_HUB_OFFLINE=1`).
-- **CRF** — the released `kazmorph/models/crf_model.joblib` (sklearn-crfsuite,
-  lbfgs, c1=0.2, c2=0.01, max_iter 150, all_possible_states/transitions;
-  trained on the same train split). Features built by running kazmorph's
-  Stage-1 RMA per token and `CRFTagger.extract_features`. Loaded as-is,
-  never retrained here.
+- **CRF** — the released baseline model from the authors' prior toolkit,
+  bundled in full under `kzcalib/crf_baseline/` (sklearn-crfsuite, lbfgs,
+  c1=0.2, c2=0.01, max_iter 150, all_possible_states/transitions; trained
+  on the same train split — see `crf_hyperparams.json`). Features built by
+  running the toolkit's Stage-1 RMA per token and `CRFTagger.extract_features`.
+  Loaded as-is, never retrained here. The RMA lemma dictionary is built at
+  runtime from the toolkit's original (pre-decontamination) train file,
+  bundled as `crf_baseline/train_split.conllu`.
 
 ## What was replaced relative to the draft (and why)
 

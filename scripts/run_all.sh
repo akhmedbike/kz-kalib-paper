@@ -6,7 +6,6 @@ cd "$(dirname "$0")/.."
 PY=.venv/bin/python
 export PYTHONHASHSEED=42
 export HF_HUB_OFFLINE=1
-export KAZMORPH_ROOT="${KAZMORPH_ROOT:-$HOME/Dev/kazmorph}"
 
 SEEDS="${SEEDS:-13 42 123}"
 MODELS="${MODELS:-kazbert kazroberta xlmr}"

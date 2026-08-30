@@ -1,39 +1,27 @@
 """CRF baseline evaluated through the same harness as the neural taggers.
 
-The released model (kazmorph ``models/crf_model.joblib``, c1=0.2/c2=0.01,
+The released model (``crf_baseline/crf_model.joblib``, c1=0.2/c2=0.01,
 trained on the canonical train split) is loaded as-is; features are built by
-running kazmorph's Stage-1 RMA over each token and calling the project's own
+running the baseline's Stage-1 RMA over each token and calling its
 ``CRFTagger.extract_features``. Confidence = marginal probability of the
-predicted tag (``predict_marginals``). Requires a kazmorph checkout; the path
-defaults to ``~/Dev/kazmorph`` and can be overridden with KAZMORPH_ROOT.
+predicted tag (``predict_marginals``). The whole baseline is bundled in
+``crf_baseline/`` — no external checkout is required.
 """
 
 from __future__ import annotations
 
 import os
-import sys
 
+import joblib
 import numpy as np
 
+from .crf_baseline.crf_tagger import CRFTagger
+from .crf_baseline.rma import ReverseMorphAnalyzer
 from .data import LABEL2ID, UPOS_LABELS, Sentence
 
 
-def _kazmorph_root() -> str:
-    return os.environ.get("KAZMORPH_ROOT", os.path.expanduser("~/Dev/kazmorph"))
-
-
-def _load_kazmorph():
-    root = _kazmorph_root()
-    if root not in sys.path:
-        sys.path.insert(0, root)
-    from kazmorph.crf_tagger import CRFTagger
-    from kazmorph.rma import ReverseMorphAnalyzer
-    import joblib
-    return CRFTagger, ReverseMorphAnalyzer, joblib
-
-
 def crf_model_path() -> str:
-    return os.path.join(_kazmorph_root(), "models", "crf_model.joblib")
+    return os.path.join(os.path.dirname(__file__), "crf_baseline", "crf_model.joblib")
 
 
 def run_crf(sentences: list[Sentence]) -> dict:
@@ -43,7 +31,6 @@ def run_crf(sentences: list[Sentence]) -> dict:
     from the marginals (absent tags get 0), so Brier/NLL use the same code
     path as the neural dumps.
     """
-    CRFTagger, ReverseMorphAnalyzer, joblib = _load_kazmorph()
     model = joblib.load(crf_model_path())
     rma = ReverseMorphAnalyzer()
 
