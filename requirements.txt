@@ -1,0 +1,13 @@
+torch>=2.13
+transformers>=5.16
+numpy>=2.0
+scipy
+matplotlib
+scikit-learn
+sklearn-crfsuite
+joblib
+conllu
+pytest
+pyyaml
+pandas
+tqdm

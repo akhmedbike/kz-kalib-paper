@@ -216,3 +216,20 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# --- Project-specific ---
+
+# macOS Finder metadata
+.DS_Store
+
+# Internal working documents (paper draft, co-author memos, logs, figures);
+# PROVENANCE.md is published via the negation below
+docs/*
+!docs/PROVENANCE.md
+
+# Generated experiment artifacts, recreated by scripts/run_all.sh +
+# kzcalib.aggregate / kzcalib.figures: model weights, per-token logit dumps,
+# rendered figures. Committed results: results/metrics/ and results/tables/.
+results/checkpoints/
+results/dumps/
+results/figures/
