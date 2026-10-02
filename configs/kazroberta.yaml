@@ -1,0 +1,6 @@
+name: kazroberta
+model_name: kz-transformers/kaz-roberta-conversational
+lr: 5.0e-5
+batch_size: 16
+max_epochs: 40
+patience: 5

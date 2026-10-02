@@ -1,0 +1,6 @@
+name: xlmr
+model_name: FacebookAI/xlm-roberta-base
+lr: 5.0e-5
+batch_size: 16
+max_epochs: 40
+patience: 5
