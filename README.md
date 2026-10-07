@@ -88,14 +88,17 @@ Individual stages:
 This repository holds the code, the canonical data split, the CRF baseline,
 the per-run metric JSONs (`results/metrics/`), and the aggregated tables
 (`results/tables/`). The large generated artifacts are archived on Zenodo
-([doi:10.5281/zenodo.23096850](https://doi.org/10.5281/zenodo.23096850)):
+([doi:10.5281/zenodo.23096849](https://doi.org/10.5281/zenodo.23096849),
+concept DOI — always resolves to the latest version):
 
 - per-token probability dumps for every reported run (dev + test, 3 models ×
   3 seeds) — `kz-calib-v2.zip`;
-- the nine fine-tuned transformer checkpoints — split archives
-  `kz-calib-v2-ckpt-{kazbert,kazroberta}.zip` and
-  `kz-calib-v2-ckpt-xlmr-{13,42,123}.zip` (SHA-256 checksums in
-  `MANIFEST-checkpoints.sha256`, reload instructions in `CHECKPOINTS.md`);
+- the nine fine-tuned transformer checkpoints — one seed per archive
+  `kz-calib-v2-ckpt-{kazbert,kazroberta}-{13,42,123}.zip` and
+  `kz-calib-v2-ckpt-xlmr-{13,123}.zip`, with `kz-calib-v2-ckpt-xlmr-42.zip`
+  split into three byte-parts `.part-{aa,ab,ac}` (SHA-256 checksums in
+  `MANIFEST-checkpoints.sha256`, join and reload instructions in
+  `CHECKPOINTS.md`);
 - rendered figures (PNG 300 dpi + vector PDF/SVG).
 
 ## License

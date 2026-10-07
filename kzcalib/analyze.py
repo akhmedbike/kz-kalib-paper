@@ -205,11 +205,17 @@ def analyze_crf(results_root: str | Path = "results") -> dict:
         softmax_T_probs(probs, fitted["T"]), gold_ids, test_sids, TAUS)
 
     conf = conf_of(probs)
+    conf_scaled = conf_of(softmax_T_probs(probs, fitted["T"]))
     correct = probs.argmax(axis=1) == gold_ids
     out["thresholds_raw"] = {
         "bands_raw": [band_calibration(conf, correct, lo, hi) for lo, hi in BANDS],
-        "routing_shift": routing_shift_full(
-            conf, conf_of(softmax_T_probs(probs, fitted["T"])), correct, TAUS),
+        "routing_shift": routing_shift_full(conf, conf_scaled, correct, TAUS),
+    }
+    # same sentence-cluster Δrisk CI protocol as the neural runs (Table 7)
+    out["delta_risk_sentence"] = {
+        f"tau={t}": bootstrap_delta_risk_sentence(
+            conf, conf_scaled, correct, test_sids, t)
+        for t in TAUS
     }
     out["dev_raw"] = analyze_split(dev_out["probs"], dev_out["gold_ids"])
     out["dev_raw"].pop("risk_coverage", None)

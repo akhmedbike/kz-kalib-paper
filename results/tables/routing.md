@@ -1,6 +1,6 @@
 # Routing shift under temperature scaling (NLL protocol)
 
-Labels never change; only the threshold decision does. Neural values are mean ± SD over the three seeds; Δrisk CIs are sentence-cluster bootstrap 95% intervals (shown for each seed).
+Labels never change; only the threshold decision does. Neural values are mean ± SD over the three seeds; Δrisk CIs are sentence-cluster bootstrap 95% intervals (neural: per seed; CRF: single model).
 
 | Model | τ | Δcov (pp) | cross↓ n | err among↓ (%) | err among kept (%) | risk raw→scaled (%) | Δrisk@τ, seed CIs (pp) |
 |---|---|---|---|---|---|---|---|
@@ -10,5 +10,5 @@ Labels never change; only the threshold decision does. Neural values are mean ±
 | KazRoBERTa | 0.85 | -8.24 | 131.3 ± 6.8 | 31.4 ± 6.2 | 3.9 ± 0.6 | 6.32 → 3.92 | seed 13: [-3.20, -1.73]; seed 42: [-3.74, -1.99]; seed 123: [-2.70, -1.29] |
 | XLM-R | 0.7 | -2.45 | 39.0 ± 2.6 | 39.0 ± 7.5 | 5.4 ± 0.6 | 6.26 → 5.41 | seed 13: [-1.20, -0.28]; seed 42: [-1.71, -0.61]; seed 123: [-1.18, -0.31] |
 | XLM-R | 0.85 | -4.89 | 78.0 ± 7.0 | 32.4 ± 9.4 | 4.0 ± 0.2 | 5.46 → 4.03 | seed 13: [-2.01, -0.84]; seed 42: [-2.57, -1.17]; seed 123: [-1.74, -0.45] |
-| CRF (T on marginals) | 0.7 | -10.60 | 169 | 33.1 | 12.8 | 15.05 → 12.81 | — |
-| CRF (T on marginals) | 0.85 | -25.28 | 403 | 25.1 | 9.7 | 13.91 → 9.74 | — |
+| CRF (T on marginals) | 0.7 | -10.60 | 169 | 33.1 | 12.8 | 15.05 → 12.81 | [-3.23, -1.39] |
+| CRF (T on marginals) | 0.85 | -25.28 | 403 | 25.1 | 9.7 | 13.91 → 9.74 | [-5.54, -2.81] |

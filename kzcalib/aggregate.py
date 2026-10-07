@@ -162,7 +162,7 @@ def table_routing(root: Path) -> str:
         "",
         "Labels never change; only the threshold decision does. Neural values "
         "are mean ± SD over the three seeds; Δrisk CIs are sentence-cluster "
-        "bootstrap 95% intervals (shown for each seed).",
+        "bootstrap 95% intervals (neural: per seed; CRF: single model).",
         "",
         "| Model | τ | Δcov (pp) | cross↓ n | err among↓ (%) | err among kept (%) "
         "| risk raw→scaled (%) | Δrisk@τ, seed CIs (pp) |",
@@ -193,11 +193,13 @@ def table_routing(root: Path) -> str:
     if crf:
         for tau in (0.70, 0.85):
             e = crf["thresholds_raw"]["routing_shift"][f"tau={tau}"]
+            d = crf["delta_risk_sentence"][f"tau={tau}"]
             lines.append(
                 f"| CRF (T on marginals) | {tau} | {e['coverage_delta_pp']:+.2f} "
                 f"| {e['n_cross_down']} | {e['down_error_rate']*100:.1f} "
                 f"| {e['error_rate_among_always_above']*100:.1f} "
-                f"| {e['risk_raw']*100:.2f} → {e['risk_scaled']*100:.2f} | — |")
+                f"| {e['risk_raw']*100:.2f} → {e['risk_scaled']*100:.2f} "
+                f"| [{d['ci95_low']*100:+.2f}, {d['ci95_high']*100:+.2f}] |")
     return "\n".join(lines) + "\n"
 
 
